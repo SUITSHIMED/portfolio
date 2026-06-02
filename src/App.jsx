@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, useInView, useSpring, useMotionValue } from 'framer-motion';
+import { useState } from 'react';
 import ContactModal from './Component/ContactModal';
+import CustomCursor from './Component/Cursor';
+import TypewriterText from './Component/Typewriter';
 
 // --- 1. PROJECT DATA ---
 const PROJECTS = [
@@ -27,65 +28,8 @@ const PROJECTS = [
   }
 ];
 
-// --- 2. CUSTOM CURSOR COMPONENT ---
-const CustomCursor = () => {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  const springConfig = { damping: 25, stiffness: 250 };
-  const smoothedX = useSpring(cursorX, springConfig);
-  const smoothedY = useSpring(cursorY, springConfig);
 
-  useEffect(() => {
-    const moveCursor = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    };
-    window.addEventListener("mousemove", moveCursor);
-    return () => window.removeEventListener("mousemove", moveCursor);
-  }, [cursorX, cursorY]);
 
-  return (
-    <motion.div
-      className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9999] hidden md:flex items-center justify-center"
-      style={{ x: smoothedX, y: smoothedY, translateX: "-50%", translateY: "-50%" }}
-    >
-      <div className="absolute inset-0 border border-blue-500/30 rounded-full"></div>
-      <div className="w-1 h-1 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]"></div>
-      <div className="absolute top-0 w-[1px] h-2 bg-blue-500"></div>
-      <div className="absolute bottom-0 w-[1px] h-2 bg-blue-500"></div>
-      <div className="absolute left-0 w-2 h-[1px] bg-blue-500"></div>
-      <div className="absolute right-0 w-2 h-[1px] bg-blue-500"></div>
-    </motion.div>
-  );
-};
-
-// --- 3. TYPEWRITER COMPONENT ---
-const TypewriterText = ({ text, delay = 0 }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
-
-  const sentence = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: { delayChildren: delay, staggerChildren: 0.02 },
-    },
-  };
-
-  const letter = {
-    hidden: { opacity: 0, display: "none" },
-    visible: { opacity: 1, display: "inline" },
-  };
-
-  return (
-    <motion.span ref={ref} variants={sentence} initial="hidden" animate={isInView ? "visible" : "hidden"} className="font-mono">
-      {text.split("").map((char, index) => (
-        <motion.span key={index} variants={letter}>{char}</motion.span>
-      ))}
-      <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 0.8 }} className="inline-block w-2 h-4 ml-1 bg-blue-500 align-middle" />
-    </motion.span>
-  );
-};
 
 // --- 4. PROJECT CARD COMPONENT ---
 const ProjectCard = ({ project }) => (
@@ -171,7 +115,7 @@ export default function App() {
                 </div>
 
                 <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.85] mb-10 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/20">
-                  I build the <span className="text-white underline decoration-blue-600 decoration-4 underline-offset-8">whole</span> product.
+                  I build the <span className="text-white underline decoration-blue-600 decoration-4 underline-offset-8">whole</span> product From idea to deployment.
                 </h1>
 
                 <div className="grid md:grid-cols-2 gap-8 mb-12 py-8 border-y border-white/5">
