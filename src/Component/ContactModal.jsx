@@ -28,19 +28,19 @@ const ContactModal = ({ isOpen, onClose }) => {
         <div className="space-y-4">
           {/* Email Option */}
           <a href="mailto:mohamedlakhrouf@gmail.com" className="flex items-center justify-between group p-4 border border-white/5 bg-white/5 hover:border-blue-500/50 transition-all">
-            <span className="text-xs font-mono text-gray-400 group-hover:text-white">EMAIL_PROTO</span>
+            <span className="text-xs font-mono text-gray-400 group-hover:text-white">EMAIL</span>
             <span className="text-blue-500">→</span>
           </a>
 
           {/* LinkedIn Option */}
           <a href="https://www.linkedin.com/in/mohamed-l-216670212/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between group p-4 border border-white/5 bg-white/5 hover:border-blue-500/50 transition-all">
-            <span className="text-xs font-mono text-gray-400 group-hover:text-white">LINKEDIN_SIGNAL</span>
+            <span className="text-xs font-mono text-gray-400 group-hover:text-white">LINKEDIN</span>
             <span className="text-blue-500">→</span>
           </a>
 
           {/* GitHub Option */}
           <a href="https://github.com/SUITSHIMED" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between group p-4 border border-white/5 bg-white/5 hover:border-blue-500/50 transition-all">
-            <span className="text-xs font-mono text-gray-400 group-hover:text-white">GITHUB_SOURCE</span>
+            <span className="text-xs font-mono text-gray-400 group-hover:text-white">GITHUB</span>
             <span className="text-blue-500">→</span>
           </a>
         </div>

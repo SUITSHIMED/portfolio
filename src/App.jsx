@@ -119,8 +119,7 @@ const Footer = () => (
   <footer className="relative z-10 w-full border-t border-white/5 bg-[#0a0a0a]/80 backdrop-blur-md py-12 px-6">
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
       <div className="flex flex-col gap-1 items-center md:items-start">
-        <p className="text-[10px] font-mono text-blue-500 uppercase tracking-[0.3em]">Built_By</p>
-        <h3 className="text-xl font-black tracking-tighter uppercase">MOHAMED LAKHROUF</h3>
+        
       </div>
       <div className="flex items-center gap-6 text-[9px] font-mono text-gray-500 uppercase tracking-[0.2em]">
         <div className="flex items-center gap-2"><span className="w-1 h-1 bg-blue-500 rounded-full"></span>ENGINE: REACT_VITE</div>
@@ -129,7 +128,10 @@ const Footer = () => (
       <div className="flex items-center gap-4">
       </div>
     </div>
-    <div className="max-w-7xl mx-auto mt-8 h-[1px] bg-gradient-to-r from-blue-500/50 via-transparent to-transparent"></div>
+    <div className="max-w-7xl mx-auto mt-8 text-center text-xs text-gray-500">
+      © 2026 Mohamed Lakhrouf. All rights reserved.
+    </div>
+    <div className="max-w-7xl mx-auto mt-4 h-[1px] bg-gradient-to-r from-blue-500/50 via-transparent to-transparent"></div>
   </footer>
 );
 
@@ -183,7 +185,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-6">
+                <div className="flex flex-col sm:flex-row gap-6 justify-center">
                   <button onClick={() => setView('projects')} className="group relative">
                     <div className="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-blue-600 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
                     <div className="relative border-2 border-white bg-white px-10 py-4 transition-transform group-active:translate-x-1 group-active:translate-y-1">
@@ -204,13 +206,13 @@ export default function App() {
         ) : (
           <div className="relative z-10 max-w-5xl mx-auto pt-32 px-6 pb-20">
             <button onClick={() => setView('home')} className="group mb-12 flex items-center gap-2 text-[10px] font-mono text-gray-500 hover:text-blue-400 transition-colors">
-              <span className="transition-transform group-hover:-translate-x-1">←</span> RETURN_TO_SYSTEM
+              <span className="transition-transform group-hover:-translate-x-1">←</span> RETURN_TO_HOME
             </button>
             <div className="mb-20">
-              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-4">Selected_Deployments</h2>
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-4">PROJECTS</h2>
               <div className="h-1 w-20 bg-blue-600"></div>
             </div>
-            <div className="grid gap-12">
+            <div className="grid gap-12 justify-items-center" >
               {PROJECTS.map((p) => <ProjectCard key={p.id} project={p} />)}
             </div>
           </div>
