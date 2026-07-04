@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ContactModal from './Component/ContactModal';
 import CustomCursor from './Component/Cursor';
 import TypewriterText from './Component/Typewriter';
@@ -81,8 +81,44 @@ const Footer = () => (
 
 // --- 6. MAIN APP COMPONENT ---
 export default function App() {
-  const [view, setView] = useState('home');
+  const [view, setView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash === '#projects') return 'projects';
+    }
+    return 'home';
+  });
   const [showContact, setShowContact] = useState(false);
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (event.state && event.state.view) {
+        setView(event.state.view);
+      } else {
+        const hash = window.location.hash;
+        if (hash === '#projects') {
+          setView('projects');
+        } else {
+          setView('home');
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    if (!window.history.state) {
+      window.history.replaceState({ view }, '', window.location.hash || '#');
+    }
+
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [view]);
+
+  const navigateTo = (newView) => {
+    setView(newView);
+    const newHash = newView === 'home' ? '#' : `#${newView}`;
+    window.history.pushState({ view: newView }, '', newHash);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0a] text-white font-sans overflow-x-hidden selection:bg-blue-500/30 flex flex-col">
@@ -130,7 +166,7 @@ export default function App() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                  <button onClick={() => setView('projects')} className="group relative">
+                  <button onClick={() => navigateTo('projects')} className="group relative">
                     <div className="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-blue-600 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
                     <div className="relative border-2 border-white bg-white px-10 py-4 transition-transform group-active:translate-x-1 group-active:translate-y-1">
                       <span className="text-xs font-black uppercase tracking-[0.2em] text-black">Explore Projects</span>
@@ -149,7 +185,7 @@ export default function App() {
           </div>
         ) : (
           <div className="relative z-10 max-w-5xl mx-auto pt-32 px-6 pb-20">
-            <button onClick={() => setView('home')} className="group mb-12 flex items-center gap-2 text-[10px] font-mono text-gray-500 hover:text-blue-400 transition-colors">
+            <button onClick={() => navigateTo('home')} className="group mb-12 flex items-center gap-2 text-[10px] font-mono text-gray-500 hover:text-blue-400 transition-colors">
               <span className="transition-transform group-hover:-translate-x-1">←</span> RETURN_TO_HOME
             </button>
             <div className="mb-20">
